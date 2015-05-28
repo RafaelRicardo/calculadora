@@ -1,0 +1,369 @@
+public class CALCULADORA extends javax.swing.JFrame {
+
+ enum Entrada { NINGUNA, DIGITO, OPERADOR, CE}
+ 
+  public CALCULADORA() {
+        initComponents();
+        ultimaEntrada = Entrada.NINGUNA;//ver 'pag 63'
+        puntoDecimal = false;
+        operador = 0;
+        numOperandos = 0;
+        operando1 = 0;
+        operando2 = 0;
+    }
+     private void initComponents() {
+
+        //antes de inicializacion comp
+        pantalla = new javax.swing.JTextField();
+        //despues
+        dig7 = new javax.swing.JButton();
+        dig8 = new javax.swing.JButton();
+        dig9 = new javax.swing.JButton();
+        dig4 = new javax.swing.JButton();
+        dig5 = new javax.swing.JButton();
+        dig6 = new javax.swing.JButton();
+        dig1 = new javax.swing.JButton();
+        dig2 = new javax.swing.JButton();
+        dig3 = new javax.swing.JButton();
+        digPunto = new javax.swing.JButton();
+        digIniciar = new javax.swing.JButton();
+        digBorrar = new javax.swing.JButton();
+        digMenos = new javax.swing.JButton();
+        digDivision = new javax.swing.JButton();
+        digPor = new javax.swing.JButton();
+        digMas = new javax.swing.JButton();
+        digPorCiento = new javax.swing.JButton();
+        digIgual = new javax.swing.JButton();
+        dig0 = new javax.swing.JButton();
+        //prueba cero
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CALCULADORA");
+
+        pantalla.setEditable(false);
+        pantalla.setBackground(new java.awt.Color(255, 255, 102));
+        pantalla.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        pantalla.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        pantalla.setText("0.");
+
+        dig7.setText("7");
+        dig8.setText("8");
+        dig9.setText("9");
+        dig4.setText("4");
+        dig5.setText("5");
+        dig6.setText("6");
+        dig1.setText("1");
+        dig2.setText("2");
+        dig3.setText("3");
+        digPunto.setText(".");
+        digPunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digPuntoActionPerformed(evt);
+            }
+        });
+
+        digIniciar.setText("C");
+        digIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digIniciarActionPerformed(evt);
+            }
+        });
+
+        digBorrar.setText("CE");
+        digBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digBorrarActionPerformed(evt);
+            }
+        });
+
+        digMenos.setText("-");
+
+        digDivision.setText("/");
+
+        digPor.setText("x");
+
+        digMas.setText("+");
+
+        digPorCiento.setText("%");
+        digPorCiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                digPorCientoActionPerformed(evt);
+            }
+        });
+
+        digIgual.setText("=");
+
+        dig0.setText("0");
+
+        /**
+        * Metodo manejador de eventos
+        * Este metodo genera un mensaje de accion
+        */
+        ActionListener aldigi = new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                jbtDigitoActionPerformed(evt);
+            }
+        };
+        dig0.addActionListener(aldigi);
+        dig1.addActionListener(aldigi);
+        dig2.addActionListener(aldigi);
+        dig3.addActionListener(aldigi);
+        dig4.addActionListener(aldigi);
+        dig5.addActionListener(aldigi);
+        dig6.addActionListener(aldigi);
+        dig7.addActionListener(aldigi);
+        dig8.addActionListener(aldigi);
+        dig9.addActionListener(aldigi);
+
+        /**
+        * Manejador de eventos de accion para los 
+        * botones +, -, /, %, x
+        */
+        ActionListener alop = new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                jbtOperacionActionPerformed(evt);
+            }
+        };
+        digMas.addActionListener(alop);
+        digMenos.addActionListener(alop);
+        digDivision.addActionListener(alop);
+        digPor.addActionListener(alop);
+        digIgual.addActionListener(alop);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pantalla)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(dig1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dig2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dig0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(digPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(digIgual, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(dig3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(digPor, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(dig7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(dig8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(dig9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(digIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(dig4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(dig5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(dig6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(digDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(digMenos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(digBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(digMas, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(digPorCiento, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dig7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig9, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dig4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digMenos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dig1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digPor, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digMas, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(digPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digPorCiento, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(digIgual, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dig0, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        //FIN INITCOMP
+
+        pack();
+    }// </editor-fold> 
+    
+     private void digPuntoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        if(ultimaEntrada != Entrada.DIGITO){
+            pantalla.setText("0.");
+            ultimaEntrada = Entrada.DIGITO;
+        }else if(puntoDecimal == false){
+            pantalla.setText(pantalla.getText()+".");
+        }
+        puntoDecimal = true;
+    }   
+    
+      private void digPorCientoActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        double resultado;
+        if(ultimaEntrada == Entrada.DIGITO){
+            resultado = operando1 * Double.parseDouble(pantalla.getText())/100;
+            //visualizar el resultado
+            pantalla.setText(Double.toString(resultado));
+            //simular que se ha hecho click en "="
+            digIgual.doClick();
+            //enfocar la tecla %
+            digPorCiento.requestFocus();
+        }
+    } 
+    private void digIniciarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        pantalla.setText("0.");
+        ultimaEntrada = Entrada.NINGUNA;
+        puntoDecimal = false;
+        operador = 0;
+        numOperandos = 0;
+        operando1 = 0;
+        operando2 = 0;
+    } 
+     private void digBorrarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        pantalla.setText("0.");
+        ultimaEntrada = Entrada.CE;
+        puntoDecimal = false;
+    } 
+     private void jbtOperacionActionPerformed(ActionEvent evt){
+        //obtenemos el id del boton que genero el evento
+        JButton objJBT = (JButton) evt.getSource();
+        //obtenemos el texto del boton pulsado
+        String textoBoton = objJBT.getText();
+        
+        if((numOperandos == 0) && (textoBoton.compareTo("-") == 0))//es para poder ingresar numeros negativos
+            ultimaEntrada = Entrada.DIGITO;                         //al inicio
+        
+        if(ultimaEntrada == Entrada.DIGITO)
+            numOperandos++;
+        if(numOperandos == 1)
+            operando1 = Double.parseDouble(pantalla.getText());
+        else if(numOperandos == 2){
+            operando2 = Double.parseDouble(pantalla.getText());
+            switch(operador){
+                case '+': operando1 += operando2; break;
+                case '-': operando1 -= operando2; break;
+                case 'x': operando1 *= operando2; break;
+                case '/': operando1 /= operando2; break;
+                case '=': operando1  = operando2; break;
+            }
+            pantalla.setText(Double.toString(operando1));
+            numOperandos = 1;
+        }
+        operador = textoBoton.charAt(0);
+        ultimaEntrada = Entrada.OPERADOR;
+    }
+    public static void main(String args[]) {
+       
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CALCULADORA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CALCULADORA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CALCULADORA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CALCULADORA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CALCULADORA().setVisible(true);
+            }
+        });
+    }
+
+    /**
+     * Este metodo asigna el titulo de la tecla pulsada en la pantalla
+     *
+     * @param evt
+     */
+    private void jbtDigitoActionPerformed(ActionEvent evt) {
+        //obtenemos el id del boton que fue pulsado ó genero el evento
+        JButton objJBT = (JButton) evt.getSource();
+       
+        String textoBoton = objJBT.getText();
+        if(ultimaEntrada != Entrada.DIGITO){//evalua si la ultima entrada fue un digito ó otro valor
+            if(textoBoton.compareTo("0") == 0)return;//los ceros iniciales no son significativos
+            pantalla.setText("");
+            ultimaEntrada = Entrada.DIGITO;
+            puntoDecimal = false;//para poder introducir un punto decimal en el segundo operando
+                                 //es necesario poner la variable 'puntoDecimal' en false
+        }
+        //ahora escribimos en la pantalla el texto del boton pulsado 'pag 63'
+        pantalla.setText(pantalla.getText()+textoBoton);
+    }
+
+    // Variables declaration - do not modify                     
+    private Entrada ultimaEntrada;//Variable miembro tipo enum 'pag 63'
+    private boolean puntoDecimal;//Variable booleana
+    private char operador;//recuerda que operador se introdujo
+    private byte numOperandos;
+    private double operando1;
+    private double operando2;
+    private javax.swing.JButton dig0;
+    private javax.swing.JButton dig1;
+    private javax.swing.JButton dig2;
+    private javax.swing.JButton dig3;
+    private javax.swing.JButton dig4;
+    private javax.swing.JButton dig5;
+    private javax.swing.JButton dig6;
+    private javax.swing.JButton dig7;
+    private javax.swing.JButton dig8;
+    private javax.swing.JButton dig9;
+    private javax.swing.JButton digBorrar;
+    private javax.swing.JButton digDivision;
+    private javax.swing.JButton digIgual;
+    private javax.swing.JButton digIniciar;
+    private javax.swing.JButton digMas;
+    private javax.swing.JButton digMenos;
+    private javax.swing.JButton digPor;
+    private javax.swing.JButton digPorCiento;
+    private javax.swing.JButton digPunto;
+    private javax.swing.JTextField pantalla;
+    // End of variables declaration 
+   
+    
+}
+}
